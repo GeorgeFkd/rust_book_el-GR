@@ -1,18 +1,18 @@
-## Appendix A: Keywords
+## Παράρτημα Α: Λέξεις-Κλειδιά
 
-The following list contains keywords that are reserved for current or future
-use by the Rust language. As such, they cannot be used as identifiers (except
-as raw identifiers as we’ll discuss in the “[Raw
-Identifiers][raw-identifiers]<!-- ignore -->” section). Identifiers are names
-of functions, variables, parameters, struct fields, modules, crates, constants,
-macros, static values, attributes, types, traits, or lifetimes.
+Η παρακάτω λίστα περιέχει λέξεις κλειδιά που έχουν δεσμευτεί για χρήση τώρα
+ή στο μέλλον από την γλώσσα Rust. Οπότε, δεν μπορούν να χρησιμοποιηθούν ως
+αναγνωριστικά (εκτός σαν |raw| αναγνωριστικά όπως θα συζητήσουμε στην ενότητα “[Raw
+Identifiers][raw-identifiers]<!-- ignore -->” ). Αναγνωριστικά είναι τα ονόματα
+συναρτήσεων, μεταβλητών, παραμέτρων, πεδίων δομών, |modules|, κιβώτια, σταθερές,
+|macros|, στατικές τιμές, γνωρίσματα, τύποι, |traits|, ή |lifetimes|.
 
 [raw-identifiers]: #raw-identifiers
 
-### Keywords Currently in Use
+### Λέξεις Κλειδιά που βρίσκονται τώρα σε χρήση
 
-The following is a list of keywords currently in use, with their functionality
-described.
+Η παρακάτω λίστα είναι μια λίστα λέξεων κλειδιών τώρα σε χρήση, με περιγραφή
+της λειτουργικότητάς τους.
 
 * `as` - perform primitive casting, disambiguate the specific trait containing
   an item, or rename items in `use` statements
@@ -59,10 +59,10 @@ described.
 
 [union]: ../reference/items/unions.html
 
-### Keywords Reserved for Future Use
+### Λέξεις κλειδιά που έχουν δεσμευτεί για μελλοντική χρήση
 
-The following keywords do not yet have any functionality but are reserved by
-Rust for potential future use.
+Οι παρακάτω λέξεις κλειδιά δεν έχουν ακόμα κάποια λειτουργικότητα αλλά 
+είναι δεσμευμένα από την Rust για πιθανή μελλοντική χρήση.
 
 * `abstract`
 * `become`
@@ -78,7 +78,14 @@ Rust for potential future use.
 * `virtual`
 * `yield`
 
-### Raw Identifiers
+### |Raw| Αναγνωριστικά
+
+*|Raw| Αναγνωριστικά* είναι η σύνταξη που σου επιτρέπει να χρησιμοποιήσεις λέξεις
+κλειδιά κάπου που κανονικά δεν θα επιτρεπόταν. Χρησιμοποιείς το |raw| αναγνωριστικό
+βάζοντας το πρόθεμα `r#` στην λέξη-κλειδί.
+
+Για παράδειγμα, το `match` είναι μία λέξη-κλειδί. Αν προσπαθήσεις να μεταγλωττίσεις
+την παρακάτω συνάρτηση που χρησιμοποιεί το `match` ως το όνομά της:
 
 *Raw identifiers* are the syntax that lets you use keywords where they wouldn’t
 normally be allowed. You use a raw identifier by prefixing a keyword with `r#`.
@@ -86,7 +93,7 @@ normally be allowed. You use a raw identifier by prefixing a keyword with `r#`.
 For example, `match` is a keyword. If you try to compile the following function
 that uses `match` as its name:
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">Όνομα Αρχείου: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn match(needle: &str, haystack: &str) -> bool {
@@ -94,7 +101,7 @@ fn match(needle: &str, haystack: &str) -> bool {
 }
 ```
 
-you’ll get this error:
+Θα πάρεις αυτό το μήνυμα σφάλματος:
 
 ```text
 error: expected identifier, found keyword `match`
@@ -104,11 +111,13 @@ error: expected identifier, found keyword `match`
   |    ^^^^^ expected identifier, found keyword
 ```
 
-The error shows that you can’t use the keyword `match` as the function
-identifier. To use `match` as a function name, you need to use the raw
-identifier syntax, like this:
+Το μήνυμα σφάλματος σου δείχνει ότι δεν μπορείς να χρησιμοποιήσεις την
+λέξη-κλειδί `match` σαν αναγνωριστικό συνάρτησης. Για να χρησιμοποιήσεις
+το `match` σαν όνομα συνάρτησης, πρέπει να χρησιμοποιήσεις την σύνταξη
+για το |raw| αναγνωριστικό, έτσι:
 
-<span class="filename">Filename: src/main.rs</span>
+
+<span class="filename">Όνομα Αρχείου: src/main.rs</span>
 
 ```rust
 fn r#match(needle: &str, haystack: &str) -> bool {
@@ -120,18 +129,22 @@ fn main() {
 }
 ```
 
-This code will compile without any errors. Note the `r#` prefix on the function
-name in its definition as well as where the function is called in `main`.
+Αυτός ο κώδικας θα μεταγλωττιστεί χωρίς μηνύματα σφάλματος. Σημείωσε ότι το 
+`r#` πρόθεμα στο όνομα της συνάρτησης υπάρχει και στον ορισμό της και όταν
+αυτή καλείται από την `main`.
 
-Raw identifiers allow you to use any word you choose as an identifier, even if
-that word happens to be a reserved keyword. This gives us more freedom to
-choose identifier names, as well as lets us integrate with programs written in
-a language where these words aren’t keywords. In addition, raw identifiers
-allow you to use libraries written in a different Rust edition than your crate
-uses. For example, `try` isn’t a keyword in the 2015 edition but is in the 2018
-edition. If you depend on a library that’s written using the 2015 edition and
-has a `try` function, you’ll need to use the raw identifier syntax, `r#try` in
-this case, to call that function from your 2018 edition code. See [Appendix
-E][appendix-e]<!-- ignore --> for more information on editions.
+|Raw| αναγνωριστικά επιτρέπουν την χρήση οποιασδήποτε λέξης επιλέξεις σαν
+αναγνωριστικό, ακόμα και αν αυτό τυχαίνει να είναι μία δεσμευμένη λέξη κλειδί.
+Αυτό μας δίνει περισσότερη ελευθερία να επιλέξουμε ονόματα αναγνωριστικών, και
+μας επιτρέπει την ενσωμάτωση προγραμμάτων που έχουν γραφτεί σε κάποια γλώσσα
+όπου αυτές οι λέξεις δεν είναι λέξεις κλειδιά. Επιπλέον, |raw| αναγνωριστικά
+σου επιτρέπουν να χρησιμοποιήσεις βιβλιοθήκες γραμμένες σε κάποια διαφορετική
+έκοδης Rust από αυτήν που χρησιμοποιεί το δικό σου κιβώτιο. Για παράδειγμα,
+το `try` δεν είναι λέξη κλειδί στην έκδοση 2015 αλλά είναι στην έκδοση 2018.
+Αν |depend| σε μία βιβλιοθήκη που έχει γραφτεί χρησιμοποιώντας την έκδοση 2015
+και έχει μία συνάρτηση `try`, θα χρειαστεί να χρησιμοποιήσεις την σύνταξη |raw|
+αναγνωριστικού, `r#try` σε αυτήν την περίπτωση, για να καλέσεις την συνάρτηση
+από τον κώδικα σου που είναι στην έκδοση 2018. Βλέπε [Παράρτημα Ε][appendix-e]
+<!-- ignore --> για περισσότερες πληροφορίες σχετικά με τις εκδόσεις.
 
 [appendix-e]: appendix-05-editions.html

@@ -1,4 +1,4 @@
-# Appendix
+# Παράρτημα
 
-The following sections contain reference material you may find useful in your
-Rust journey.
+Οι επόμενες ενότητες περιέχουν υλικό |reference| που μπορεί να βρεις χρήσιμο
+στο ταξίδι σου στην Rust.
